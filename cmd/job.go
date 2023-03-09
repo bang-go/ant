@@ -17,7 +17,7 @@ type JobOptions struct {
 	CmdArgs  cobra.PositionalArgs
 }
 
-func NewJob(opt *JobOptions) Cmder {
+func NewJob(opt *JobOptions) *JobCmd {
 	return &JobCmd{
 		Cmd: &cobra.Command{
 			Use:   util.If(opt.CmdUse != "", opt.CmdUse, "job"),

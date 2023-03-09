@@ -16,8 +16,8 @@ import (
 func TestGin(t *testing.T) {
 	var err error
 	defer berror.PanicRecover()
-	ant := NewWithOption(&Options{AllowLogLevel: log.InfoLevel})
-	ant.AddBlock(Block{
+	artisan := NewWithOption(&Options{AllowLogLevel: log.InfoLevel})
+	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
 			return env.Configure()
@@ -38,19 +38,21 @@ func TestGin(t *testing.T) {
 		},
 	})
 	//添加CMD
-	ant.AddCmd(cmd.NewGin(&cmd.GinOptions{}))
-	if err = ant.Start(); err != nil {
+	cmdGin := cmd.NewGin(&cmd.GinOptions{})
+	cmdGin.GetCmd()
+	artisan.AddCmd(cmd.NewGin(&cmd.GinOptions{}))
+	if err = artisan.Start(); err != nil {
 		fmt.Println(err)
 	}
 	time.Sleep(5 * time.Second)
-	_ = ant.Stop()
+	_ = artisan.Stop()
 }
 
 func TestJob(t *testing.T) {
 	var err error
 	defer berror.PanicRecover()
-	ant := NewWithOption(&Options{AllowLogLevel: log.ErrorLevel})
-	ant.AddBlock(Block{
+	artisan := NewWithOption(&Options{AllowLogLevel: log.ErrorLevel})
+	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
 			return env.Configure()
@@ -79,9 +81,9 @@ func TestJob(t *testing.T) {
 		fmt.Println(args)
 		return nil
 	})
-	ant.AddCmd(cmdJob)
-	if err = ant.Start(); err != nil {
+	artisan.AddCmd(cmdJob)
+	if err = artisan.Start(); err != nil {
 		fmt.Println(err)
 	}
-	_ = ant.Stop()
+	_ = artisan.Stop()
 }

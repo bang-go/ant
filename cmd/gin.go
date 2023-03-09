@@ -27,7 +27,7 @@ type GinOptions struct {
 var DefineServerAddr = ":8080"
 var flagServerPort string
 
-func NewGin(opt *GinOptions) Cmder {
+func NewGin(opt *GinOptions) *GinCmd {
 	client := bgin.New(&bgin.Options{Mode: opt.Mode, Addr: opt.Addr})
 	return &GinCmd{
 		opt:    opt,

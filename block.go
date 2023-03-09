@@ -17,7 +17,7 @@ func execBlocks(blocks ...Block) error {
 	if len(blocks) > 0 {
 		for _, v := range blocks {
 			if err := v.Init(); err != nil {
-				global.ALog.Error("init failed", log.String("name", v.Name))
+				global.ALog.Error("init failed", log.String("name", v.Name), log.String("err", err.Error()))
 				return err
 			}
 			global.ALog.Info("init successful", log.String("name", v.Name))
