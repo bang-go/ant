@@ -54,7 +54,6 @@ func NewWithOption(opt *Options) IAnt {
 }
 
 func (a *Artisan) Start() error {
-	var err error
 	if err := execBlocks(a.Blocks...); err != nil {
 		return err
 	}
@@ -65,7 +64,7 @@ func (a *Artisan) Start() error {
 		}
 		return a.command.Execute()
 	}
-	return err
+	return nil
 }
 
 func (a *Artisan) initAnt() error {

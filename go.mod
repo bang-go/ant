@@ -3,9 +3,9 @@ module github.com/bang-go/ant
 go 1.20
 
 require (
-	github.com/bang-go/kit v0.0.7
+	github.com/bang-go/kit v0.0.8
 	github.com/spf13/cobra v1.6.1
-	github.com/spf13/viper v1.15.0
+	github.com/spf13/pflag v1.0.5
 	go.uber.org/zap v1.24.0
 )
 
@@ -34,7 +34,7 @@ require (
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/viper v1.15.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
