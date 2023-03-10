@@ -1,7 +1,6 @@
 package ant
 
 import (
-	"errors"
 	"github.com/bang-go/ant/cmd"
 	"github.com/bang-go/ant/global"
 	"github.com/bang-go/kit/log"
@@ -13,6 +12,7 @@ import (
 var ant *Artisan
 var (
 	AddBlock = ant.AddBlock
+	DoBlock  = ant.DoBlock
 	Start    = ant.Start
 	Stop     = ant.Stop
 )
@@ -20,16 +20,18 @@ var (
 // IAnt 类型定义
 type IAnt interface {
 	AddBlock(...Block)
+	DoBlock(...Block) error
 	AddCmd(...cmd.Cmder)
 	Start() error
 	Stop() error
 }
 
 type Artisan struct {
-	opt     *Options
-	Blocks  []Block
-	Cmds    []cmd.Cmder
-	command *cobra.Command
+	opt      *Options
+	Blocks   []Block
+	DoBlocks []Block
+	Cmds     []cmd.Cmder
+	command  *cobra.Command
 }
 
 type Options struct {
@@ -43,29 +45,30 @@ func New() IAnt {
 }
 
 func NewWithOption(opt *Options) IAnt {
-	ant = &Artisan{opt: opt, Blocks: []Block{}, command: cmd.RootCmd}
+	var err error
+	ant = &Artisan{opt: opt, Blocks: []Block{}, DoBlocks: []Block{}, command: cmd.RootCmd}
+	if err = ant.initAnt(); err != nil { //框架预加载
+		panic(err)
+	}
 	return ant
 }
 
 func (a *Artisan) Start() error {
 	var err error
-	if err = a.InitAnt(); err != nil { //框架预加载
-		panic(err)
-	}
 	if err := execBlocks(a.Blocks...); err != nil {
 		return err
 	}
-	if len(a.Cmds) <= 0 {
-		return errors.New("undefined cmd")
+	if len(a.Cmds) > 0 {
+		for _, v := range a.Cmds {
+			v.Register()
+			a.command.AddCommand(v.GetCmd())
+		}
+		return a.command.Execute()
 	}
-	for _, v := range a.Cmds {
-		v.Register()
-		a.command.AddCommand(v.GetCmd())
-	}
-	return a.command.Execute()
+	return err
 }
 
-func (a *Artisan) InitAnt() error {
+func (a *Artisan) initAnt() error {
 	var err error
 	//初始化日志客户端
 	if global.ALog, err = initAntLog(a.opt.AllowLogLevel); err != nil {
@@ -110,8 +113,9 @@ func initAntLog(logLevel log.Level) (*log.Logger, error) {
 func (a *Artisan) Stop() error {
 	//框架相关
 	_ = global.ALog.Sync()
+	blocks := append(a.Blocks, a.DoBlocks...)
 	//应用相关
-	if len(a.Blocks) > 0 {
+	if len(blocks) > 0 {
 		for _, v := range a.Blocks {
 			if v.Close != nil { //todo:打印日志
 				if err := v.Init(); err != nil {
@@ -124,8 +128,18 @@ func (a *Artisan) Stop() error {
 	return nil
 }
 
+// AddBlock 添加Block
 func (a *Artisan) AddBlock(blocks ...Block) {
 	a.Blocks = append(a.Blocks, blocks...)
+}
+
+// DoBlock 添加并运行block
+func (a *Artisan) DoBlock(blocks ...Block) error {
+	a.DoBlocks = append(a.DoBlocks, blocks...)
+	if err := execBlocks(a.DoBlocks...); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *Artisan) AddCmd(cmds ...cmd.Cmder) {
