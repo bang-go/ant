@@ -5,9 +5,9 @@ import (
 	"github.com/bang-go/ant/cmd"
 	"github.com/bang-go/kit/base/bint"
 	"github.com/bang-go/kit/berror"
+	"github.com/bang-go/kit/blog"
 	"github.com/bang-go/kit/bviper"
 	"github.com/bang-go/kit/env"
-	"github.com/bang-go/kit/log"
 	"github.com/spf13/cobra"
 	"testing"
 	"time"
@@ -16,7 +16,7 @@ import (
 func TestGin(t *testing.T) {
 	var err error
 	defer berror.PanicRecover()
-	artisan := NewWithOption(&Options{AllowLogLevel: log.InfoLevel})
+	artisan := NewWithOption(&Options{AllowLogLevel: blog.InfoLevel})
 	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
@@ -30,11 +30,11 @@ func TestGin(t *testing.T) {
 	}, Block{
 		Name: "log",
 		Init: func() error {
-			_, err := log.New(&log.Options{Default: log.ConfigProd})
+			_, err := blog.New(&blog.Options{Default: blog.ConfigProd})
 			return err
 		},
 		Close: func() error {
-			return log.Sync()
+			return blog.Sync()
 		},
 	})
 	//添加CMD
@@ -51,7 +51,7 @@ func TestGin(t *testing.T) {
 func TestJob(t *testing.T) {
 	var err error
 	defer berror.PanicRecover()
-	artisan := NewWithOption(&Options{AllowLogLevel: log.ErrorLevel})
+	artisan := NewWithOption(&Options{AllowLogLevel: blog.ErrorLevel})
 	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
@@ -65,11 +65,11 @@ func TestJob(t *testing.T) {
 	}, Block{
 		Name: "log",
 		Init: func() error {
-			_, err := log.New(&log.Options{Default: log.ConfigProd})
+			_, err := blog.New(&blog.Options{Default: blog.ConfigProd})
 			return err
 		},
 		Close: func() error {
-			return log.Sync()
+			return blog.Sync()
 		},
 	})
 	//添加CMD

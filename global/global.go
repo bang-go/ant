@@ -1,5 +1,7 @@
 package global
 
-import "github.com/bang-go/kit/log"
+import (
+	"github.com/bang-go/kit/blog"
+)
 
-var ALog *log.Logger
+var ALog *blog.Logger

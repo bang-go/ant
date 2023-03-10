@@ -40,6 +40,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/bang-go/kit v0.0.8 h1:esKFcSR4chqzSa1tGYV+pObBZPzgH4tvfnO53IervN4=
 github.com/bang-go/kit v0.0.8/go.mod h1:b4qeIUbxaLxwm9SFX0LkzSkjlfj4R01J9wNfqlTn80M=
+github.com/bang-go/kit v0.0.9 h1:oR+jtOMucgnTdJeGjQ5LifwYQ0OCRpUMre3kiDkHoqc=
+github.com/bang-go/kit v0.0.9/go.mod h1:b4qeIUbxaLxwm9SFX0LkzSkjlfj4R01J9wNfqlTn80M=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=
 github.com/bytedance/sonic v1.8.0 h1:ea0Xadu+sHlu7x5O3gKhRpQ1IKiMrSiHttPF0ybECuA=

@@ -3,7 +3,7 @@ module github.com/bang-go/ant
 go 1.20
 
 require (
-	github.com/bang-go/kit v0.0.8
+	github.com/bang-go/kit v0.0.9
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	go.uber.org/zap v1.24.0

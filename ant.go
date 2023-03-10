@@ -3,7 +3,7 @@ package ant
 import (
 	"github.com/bang-go/ant/cmd"
 	"github.com/bang-go/ant/global"
-	"github.com/bang-go/kit/log"
+	"github.com/bang-go/kit/blog"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -35,12 +35,12 @@ type Artisan struct {
 }
 
 type Options struct {
-	AllowLogLevel log.Level //允许的log level -1:Debug info:0 1:warn 2:error 3:dpanic 4 panic 5 fatal
+	AllowLogLevel blog.Level //允许的log level -1:Debug info:0 1:warn 2:error 3:dpanic 4 panic 5 fatal
 }
 
 // New creates a new ant instance.
 func New() IAnt {
-	opt := &Options{}
+	opt := new(Options)
 	return NewWithOption(opt)
 }
 
@@ -77,10 +77,10 @@ func (a *Artisan) initAnt() error {
 }
 
 // InitAntLog 初始化框架log
-func initAntLog(logLevel log.Level) (*log.Logger, error) {
+func initAntLog(logLevel blog.Level) (*blog.Logger, error) {
 	//框架本身加载
-	return log.New(&log.Options{
-		Config: log.Config{
+	return blog.New(&blog.Options{
+		Config: blog.Config{
 			Level:       zap.NewAtomicLevelAt(logLevel),
 			Development: false,
 			Sampling: &zap.SamplingConfig{
@@ -120,7 +120,7 @@ func (a *Artisan) Stop() error {
 				if err := v.Init(); err != nil {
 					return err
 				}
-				global.ALog.Info("closed success", log.String("name", v.Name))
+				global.ALog.Info("closed success", blog.String("name", v.Name))
 			}
 		}
 	}

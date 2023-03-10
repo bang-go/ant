@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/bang-go/ant/global"
 	"github.com/bang-go/kit/bgin"
-	"github.com/bang-go/kit/log"
+	"github.com/bang-go/kit/blog"
 	"github.com/bang-go/kit/util"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -80,7 +80,7 @@ func (g *GinCmd) addDefaultRun() {
 				addr = DefineServerAddr
 			}
 		}
-		global.ALog.Info("http server start", log.String("addr", addr))
+		global.ALog.Info("http server start", blog.String("addr", addr))
 		return g.Client.Run()
 	}
 }

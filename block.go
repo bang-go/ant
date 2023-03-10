@@ -2,7 +2,7 @@ package ant
 
 import (
 	"github.com/bang-go/ant/global"
-	"github.com/bang-go/kit/log"
+	"github.com/bang-go/kit/blog"
 )
 
 type BlockExec func() error
@@ -17,10 +17,10 @@ func execBlocks(blocks ...Block) error {
 	if len(blocks) > 0 {
 		for _, v := range blocks {
 			if err := v.Init(); err != nil {
-				global.ALog.Error("init failed", log.String("name", v.Name), log.String("err", err.Error()))
+				global.ALog.Error("init failed", blog.String("name", v.Name), blog.String("err", err.Error()))
 				return err
 			}
-			global.ALog.Info("init successful", log.String("name", v.Name))
+			global.ALog.Info("init successful", blog.String("name", v.Name))
 		}
 	}
 	return nil
