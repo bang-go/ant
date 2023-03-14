@@ -5,7 +5,7 @@ import (
 	"github.com/bang-go/ant/global"
 	"github.com/bang-go/kit/bgin"
 	"github.com/bang-go/kit/blog"
-	"github.com/bang-go/kit/util"
+	"github.com/bang-go/kit/butil"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -33,8 +33,8 @@ func NewGin(opt *GinOptions) *GinCmd {
 		opt:    opt,
 		Client: client,
 		Cmd: &cobra.Command{
-			Use:   util.If(opt.CmdUse != "", opt.CmdUse, "gin"),
-			Short: util.If(opt.CmdShort != "", opt.CmdShort, "Listen and serve http server"),
+			Use:   butil.If(opt.CmdUse != "", opt.CmdUse, "gin"),
+			Short: butil.If(opt.CmdShort != "", opt.CmdShort, "Listen and serve http server"),
 			Args:  opt.CmdArgs,
 		},
 	}

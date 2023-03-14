@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/bang-go/ant/cmd"
 	"github.com/bang-go/kit/base/bint"
+	"github.com/bang-go/kit/benv"
 	"github.com/bang-go/kit/berror"
 	"github.com/bang-go/kit/blog"
 	"github.com/bang-go/kit/bviper"
-	"github.com/bang-go/kit/env"
 	"github.com/spf13/cobra"
 	"testing"
 	"time"
@@ -20,12 +20,12 @@ func TestGin(t *testing.T) {
 	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
-			return env.Configure()
+			return benv.Configure()
 		},
 	}, Block{
 		Name: "viper",
 		Init: func() error {
-			return bviper.Configure(&bviper.Options{ConfigType: "yaml", ConfigPaths: []string{"./config"}, ConfigNames: []string{"default", env.GetAppEnv()}})
+			return bviper.Configure(&bviper.Options{ConfigType: "yaml", ConfigPaths: []string{"./config"}, ConfigNames: []string{"default", benv.GetAppEnv()}})
 		},
 	}, Block{
 		Name: "log",
@@ -55,12 +55,12 @@ func TestJob(t *testing.T) {
 	artisan.AddBlock(Block{
 		Name: "env",
 		Init: func() error {
-			return env.Configure()
+			return benv.Configure()
 		},
 	}, Block{
 		Name: "viper",
 		Init: func() error {
-			return bviper.Configure(&bviper.Options{ConfigType: "yaml", ConfigPaths: []string{"./config"}, ConfigNames: []string{"default", env.GetAppEnv()}})
+			return bviper.Configure(&bviper.Options{ConfigType: "yaml", ConfigPaths: []string{"./config"}, ConfigNames: []string{"default", benv.GetAppEnv()}})
 		},
 	}, Block{
 		Name: "log",

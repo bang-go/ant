@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/bang-go/kit/util"
+	"github.com/bang-go/kit/butil"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -20,8 +20,8 @@ type JobOptions struct {
 func NewJob(opt *JobOptions) *JobCmd {
 	return &JobCmd{
 		Cmd: &cobra.Command{
-			Use:   util.If(opt.CmdUse != "", opt.CmdUse, "job"),
-			Short: util.If(opt.CmdShort != "", opt.CmdShort, "start job"),
+			Use:   butil.If(opt.CmdUse != "", opt.CmdUse, "job"),
+			Short: butil.If(opt.CmdShort != "", opt.CmdShort, "start job"),
 			Args:  opt.CmdArgs,
 		},
 	}

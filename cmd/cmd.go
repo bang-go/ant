@@ -19,3 +19,8 @@ type Cmder interface {
 	AddRun(fc RunFunc)
 	Register()
 }
+
+func Pack(c Cmder, fc RunFunc) Cmder {
+	c.AddRun(fc)
+	return c
+}
